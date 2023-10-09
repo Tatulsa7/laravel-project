@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTypeRequest;
 use App\Http\Requests\Admin\UpdateTypeRequest;
+use App\Http\Resources\Types\TypeResource;
 use App\Models\Type;
 use App\Services\Admin\TypeService;
 use Illuminate\Contracts\View\View;
@@ -26,7 +27,7 @@ class TypeController extends Controller
      */
     public function index(): View
     {
-        $types = $this->service->latest();
+        $types = TypeResource::collection($this->service->latest());
 
         return view('admin.types.index', [
             'types' => $types
